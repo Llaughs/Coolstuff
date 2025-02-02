@@ -1,0 +1,137 @@
+@font-face {
+  font-family: 'PressStart2P Regular';
+  src: url('PressStart2P-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Apply the font to the entire page */
+body, button, h1, h2, .content-item, .debug button, select, option {
+  font-family: 'PressStart2P Regular', Arial, sans-serif;
+}
+/* General Hidden Class */
+.hidden {
+  display: none !important;
+}
+
+/* Card Styling */
+.card {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 2px solid lime; /* Lime green border */
+  border-radius: 10px;
+  background-color: #1e1e20; /* Darker background for contrast */
+  color: #f0f0f0; /* Slightly brighter text for better readability */
+  text-align: center;
+  box-shadow: 0px 4px 15px rgba(0, 255, 0, 0.3); /* Lime green glow */
+}
+
+/* Content Button Styling */
+.content-item {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 15px;
+  background-color: #2a2a2c; /* Neutral dark background */
+  color: #f0f0f0; /* Bright text for readability */
+  border: 2px solid #505050; /* Subtle gray border */
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: 'Arial', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.content-item:hover {
+  background-color: #3a3a3c; /* Highlight background */
+  border-color: lime; /* Lime border on hover */
+}
+
+/* Debug Menu Styling */
+.debug {
+  max-width: 300px;
+  margin: 20px auto;
+  padding: 15px;
+  border: 2px solid lime; /* Lime green border */
+  border-radius: 10px;
+  background-color: #1e1e20; /* Dark background for consistency */
+  color: #f0f0f0; /* Light text for readability */
+  text-align: center;
+  box-shadow: 0px 4px 15px rgba(0, 255, 0, 0.3); /* Lime green glow */
+}
+
+/* Debug Menu Button Styling */
+.debug button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 15px;
+  background-color: #2a2a2c; /* Slightly lighter dark background */
+  color: #f0f0f0; /* Bright text */
+  border: 2px solid #505050; /* Subtle gray border */
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: 'Arial', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.debug button:hover {
+  background-color: #3a3a3c; /* Highlight background */
+  border-color: lime; /* Lime border on hover */
+}
+
+/* Typography Adjustments */
+h1, h2 {
+  color: #f0f0f0; /* Bright text for titles */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #121212; /* Dark mode background for the entire page */
+  font-family: 'Arial', sans-serif;
+  color: #f0f0f0; /* Default text color */
+}
+
+/* Styling for Drop-downs (Content toggle) */
+select {
+  background-color: #2a2a2c;
+  color: #f0f0f0;
+  border: 2px solid lime;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+select:hover {
+  background-color: #3a3a3c;
+  border-color: lime;
+}
+
+option {
+  background-color: #2a2a2c;
+  color: #f0f0f0;
+  border: 1px solid #505050;
+}
+
+option:hover {
+  background-color: #3a3a3c;
+  border-color: lime;
+}
+/* Stats Card */
+#stats-card {
+  border-color: cyan;
+  box-shadow: 0px 4px 15px rgba(0, 255, 255, 0.3);
+}
+
+#stats-list {
+  list-style-type: none;
+  padding: 0;
+  text-align: left;
+}
+
+#stats-list li {
+  margin: 5px 0;
+  font-size: 0.9rem;
+}

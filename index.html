@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Page</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Content Card -->
+  <div id="content-card" class="card">
+    <h1>Content List</h1>
+    <button id="content1" class="content-item" onclick="location.href='content1.html'">Content 1</button>
+    <button id="content2" class="content-item" onclick="location.href='content2.html'">Content 2</button>
+    <button id="content3" class="content-item" onclick="location.href='content3.html'">Content 3</button>
+  </div>
+
+  <!-- Debug Menu -->
+  <div id="debug-menu" class="debug hidden">
+    <h2>Debug Menu</h2>
+    <button onclick="toggleContentCard()">Toggle Content Card</button>
+    <label for="content-select">Select Content:</label>
+    <select id="content-select"></select>
+    <button onclick="toggleSelectedContent()">Toggle Selected Content</button>
+    <button onclick="toggleStatsCard()">Toggle Stats Card</button>
+    <button onclick="closeDebugMenu()">Close Debug Menu</button>
+  </div>
+
+  <!-- Stats Card -->
+  <div id="stats-card" class="card hidden">
+    <h2>Stats & Variables</h2>
+    <ul id="stats-list"></ul>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,369 @@
+/* Grid Layout */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columns */
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Expression styling */
+.expression-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.expression {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    border: 2px solid black;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.expression img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Hover effect */
+.expression:hover img {
+    filter: brightness(0%);
+    transform: scale(1.1); /* Slight zoom */
+}
+
+.expression:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* White glow */
+}
+
+/* Hover text */
+.expression-hover-text {
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.expression:hover .expression-hover-text {
+    opacity: 1;
+}
+
+/* Text below each square */
+.expression-text {
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+/* Light Mode Highlight */
+.highlighted {
+    border: 3px solid #ffe900 !important;
+    animation: pulse 1.5s ease-in-out 2;
+}
+
+/* Dark Mode Highlight */
+.dark-mode .highlighted {
+    border: 3px solid lime !important;
+}
+
+/* Ensure border resets to default after highlight disappears */
+.highlighted:not(:hover) {
+    border: inherit;
+}
+
+
+/* Random Expression Highlight (Temporary Effect) */
+@keyframes pulse {
+    0% { transform: scale(1); border-color: transparent; }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); border-color: transparent; }
+}
+
+/* Dark Mode */
+.dark-mode {
+    background-color: #222;
+    color: white;
+}
+
+.dark-mode .expression {
+    border-color: white;
+}
+
+.dark-mode .expression-text {
+    color: white;
+}
+/* Tutorial Window */
+#tutorial-window {
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 30%;
+    transform: translate(0%, 0);
+    width: 600px;
+    height: 400px;
+    background: white;
+    border: 2px solid black;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow: hidden;
+    position: fixed;
+    max-height: 90vh;
+}
+
+/* Draggable Title Bar */
+#tutorial-title-bar {
+    width: 100%;
+    height: 30px;
+    background: #0078d7;
+    color: white;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    cursor: grab;
+    user-select: none;
+}
+
+/* Close Button (Windows-style "X") */
+#close-tutorial {
+    background: red;
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    transition: background 0.2s ease-in-out;
+    width: 25px;
+    height: 25px;
+}
+
+#close-tutorial:hover {
+    background: darkred;
+}
+/* Responsive Fix: Prevents the tutorial from going off-screen */
+@media (max-height: 500px) {
+    #tutorial-window {
+        top: 5%;
+        transform: translate(-50%, 0);
+        max-height: 90vh;
+    }
+}
+/* Container for Sidebar + Content */
+#tutorial-container {
+    display: flex;
+    height: 100%;
+    overflow: hidden; /* Prevents unwanted scrolling */
+}
+
+/* Sidebar */
+#tutorial-sidebar {
+    width: 150px;
+    background: #ddd;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#tutorial-sidebar h3 {
+    margin-bottom: 10px;
+}
+
+#tutorial-sidebar button {
+    width: 100%;
+    margin: 5px 0;
+    padding: 5px;
+    text-align: left;
+    background: #ccc;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#tutorial-sidebar button:hover {
+    background: #bbb;
+}
+
+/* Main Tutorial Content */
+#tutorial-content {
+    flex-grow: 1;
+    padding: 20px;
+    text-align: left; /* Align text for better readability */
+    background: white;
+    color: black;
+    overflow-y: auto; /* Enables vertical scrolling */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+    max-height: 350px; /* Prevents content from overflowing */
+    word-wrap: break-word; /* Ensures long words don't overflow */
+    white-space: normal; /* Forces text wrapping */
+}
+
+/* Keep the tutorial window stable */
+#tutorial-body {
+    min-height: 250px;
+}
+
+/* Navigation buttons */
+.tutorial-buttons {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tutorial-buttons button {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.2s ease-in-out;
+}
+
+/* Back and Next Buttons */
+#prev-button {
+    background: #007bff;
+    color: white;
+}
+
+#prev-button:hover {
+    background: #0056b3;
+}
+
+#next-button {
+    background: #28a745;
+    color: white;
+}
+
+#next-button:hover {
+    background: #1e7e34;
+}
+
+/* Dark Mode */
+.dark-mode #tutorial-window {
+    background: #222;
+    border-color: white;
+    color: white;
+}
+.dark-mode #tutorial-title-bar {
+    background: #333;
+}
+
+.dark-mode #close-tutorial {
+    background: darkred;
+}
+
+.dark-mode #close-tutorial:hover {
+    background: #aa0000;
+}
+
+.dark-mode #tutorial-content {
+    background: #222;
+    color: white;
+}
+
+.dark-mode #tutorial-sidebar {
+    background: #333;
+}
+
+.dark-mode #tutorial-sidebar button {
+    background: #444;
+    color: white;
+}
+
+.dark-mode #tutorial-sidebar button:hover {
+    background: #555;
+}
+/* Expression Comparison Panel (Now a Side Panel) */
+#expression-comparison {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Hidden by default */
+    width: 280px;
+    height: 100%;
+    background: white;
+    border-left: 2px solid black;
+    padding: 15px;
+    text-align: center;
+    box-shadow: -5px 0 10px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.dark-mode #expression-comparison {
+    background: #222;
+    border-color: white;
+    color: white;
+}
+
+/* Close Button */
+#close-comparison {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 25px;
+    height: 25px;
+    background: red;
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background 0.2s ease-in-out;
+}
+
+#close-comparison:hover {
+    background: darkred;
+}
+
+/* Drop Zones */
+.drop-zone {
+    width: 140px; /* Matches grid expression size */
+    height: 140px; /* Matches grid expression size */
+    border: 2px dashed gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    margin: 10px auto;
+}
+
+.drop-zone img {
+    width: 100%; /* Ensures perfect fit */
+    height: 100%; /* Ensures perfect fit */
+    object-fit: cover; /* Prevents stretching */
+    display: none; /* Hidden until an image is dropped */
+}
+
+.drop-zone p {
+    position: absolute;
+    color: gray;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+
+/* Show the panel when active */
+#expression-comparison.active {
+    right: 0;
+}

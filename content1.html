@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25 Essential Expressions Challenge</title>
+    <link rel="stylesheet" href="styles1.css">
+</head>
+<body>
+    <h1>25 Essential Expressions Challenge</h1>
+    <button onclick="randomExpression()">Random Expression!</button>
+<!-- Dropdown for selecting character states -->
+<label for="characterSelect">Choose a character set:</label>
+<select id="characterSelect" onchange="updateExpressions()">
+    <option value="nb">Noir Blanc</option>
+    <option value="mick">Mick</option>
+</select>
+<button onclick="toggleComparisonPanel()">Compare Expressions</button>
+<button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+<button onclick="openTutorial()">How to Use</button>
+
+<!-- Tutorial Window -->
+<div id="tutorial-window">
+    <div id="tutorial-title-bar">
+        <span>Tutorial</span>
+        <button id="close-tutorial" onclick="closeTutorial()">X</button>
+    </div>
+
+    <div id="tutorial-container">
+        <!-- Sidebar -->
+        <div id="tutorial-sidebar">
+            <h3>Topics</h3>
+            <button onclick="goToPage(0)">Introduction</button>
+            <button onclick="goToPage(1)">Random Expression</button>
+            <button onclick="goToPage(2)">Character Sets</button>
+            <button onclick="goToPage(3)">Dark Mode</button>
+        </div>
+
+        <!-- Main Tutorial Content -->
+        <div id="tutorial-content">
+            <div id="tutorial-body">
+                <!-- Tutorial content will be inserted here -->
+            </div>
+            <div class="tutorial-buttons">
+                <button id="prev-button" onclick="prevTutorialPage()">Back</button>
+                <button id="next-button" onclick="nextTutorialPage()">Next</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Expression Comparison Panel (Side Panel) -->
+<div id="expression-comparison">
+    <button id="close-comparison" onclick="toggleComparisonPanel()">X</button>
+    <h2>Expression Comparison</h2>
+    <div class="comparison-images">
+        <div class="drop-zone" id="drop-zone-1" onclick="selectExpression(1)" ondrop="dropExpression(event, 1)" ondragover="allowDrop(event)">
+            <p>Tap or drag an expression here</p>
+            <img id="comp-image-1" src="" alt="First Expression">
+        </div>
+        <div class="drop-zone" id="drop-zone-2" onclick="selectExpression(2)" ondrop="dropExpression(event, 2)" ondragover="allowDrop(event)">
+            <p>Tap or drag an expression here</p>
+            <img id="comp-image-2" src="" alt="Second Expression">
+        </div>
+    </div>
+    <p id="comp-description">Tap or drag two expressions above to compare them.</p>
+</div>
+
+
+<!-- Expression Grid -->
+<div class="grid">
+    <div class="expression-container">
+        <div class="expression">
+            <img id="exp1" src="happynb.png" alt="Happy">
+            <div class="expression-hover-text" id="text1">yay he smile!!</div>
+        </div>
+        <div class="expression-text">Happy</div>
+    </div>
+
+    <div class="expression-container">
+        <div class="expression">
+            <img id="exp2" src="sadnb.png" alt="Sad">
+            <div class="expression-hover-text" id="text2">nooo he sad :(</div>
+        </div>
+        <div class="expression-text">Sad</div>
+    </div>
+
+    <div class="expression-container">
+        <div class="expression">
+            <img id="exp3" src="pleasednb.png" alt="Pleased">
+            <div class="expression-hover-text" id="text3">he is pleased!</div>
+        </div>
+        <div class="expression-text">Pleased</div>
+    </div>
+
+    <div class="expression-container">
+        <div class="expression">
+            <img id="exp4" src="angrynb.png" alt="Angry">
+            <div class="expression-hover-text" id="text4">he is very angry!!</div>
+        </div>
+        <div class="expression-text">Angry</div>
+    </div>
+
+    <div class="expression-container">
+        <div class="expression">
+            <img id="exp5" src="confusednb.png" alt="Confused">
+            <div class="expression-hover-text" id="text5">he is so confused???</div>
+        </div>
+        <div class="expression-text">Confused</div>
+    </div>
+</div>
+
+        <!-- Add more expression containers for the remaining emotions -->
+
+    </div>
+    <script src="script1.js"></script>
+</body>
+</html>

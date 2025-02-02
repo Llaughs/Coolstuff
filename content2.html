@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+
+        #gameModeSelector {
+            margin-bottom: 20px;
+        }
+
+        .board {
+            display: grid;
+            grid-gap: 5px;
+            margin: 20px;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            background-color: #fff;
+            border: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            cursor: pointer;
+        }
+
+        .cell:hover {
+            background-color: #ddd;
+        }
+
+        .winningCell {
+            background-color: gold;
+            animation: highlight 1s ease-in-out;
+        }
+
+        @keyframes highlight {
+            0% { background-color: gold; }
+            50% { background-color: orange; }
+            100% { background-color: gold; }
+        }
+
+        #timerDisplay {
+            font-size: 1.5em;
+        }
+
+        #customRules {
+            margin: 20px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        #gameStatus {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameModeSelector">
+        <button onclick="setGameMode('classic')">Classic Mode</button>
+        <button onclick="setGameMode('largerGrid')">Larger Grid (4x4)</button>
+        <button onclick="setGameMode('randomSymbols')">Randomized Symbols</button>
+        <button onclick="setGameMode('timed')">Timed Mode</button>
+    </div>
+
+    <div id="customRules">
+        <label for="gridSize">Choose grid size:</label>
+        <select id="gridSize" onchange="updateGridSize()">
+            <option value="3">3x3</option>
+            <option value="4">4x4</option>
+            <option value="5">5x5</option>
+        </select>
+        <label for="winLength">Marks to win:</label>
+        <select id="winLength" onchange="updateWinLength()">
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+
+    <div id="timerDisplay">Time Left: <span id="timeLeft">30</span>s</div>
+    <div id="board" class="board"></div>
+    
+    <div id="gameStatus"></div> <!-- Game status display -->
+
+    <script>
+        let boardSize = 3;
+        let winLength = 3;
+        let gameMode = 'classic';
+        let currentPlayer = 'X';
+        let gameBoard = [];
+        let isGameOver = false;
+        let symbols = ['X', 'O'];
+        let timer;
+        let timeLimit = 30; // seconds
+        let currentTimer = timeLimit;
+
+        // Start the game
+        function setupBoard() {
+            gameBoard = [];
+            isGameOver = false;
+            const board = document.getElementById('board');
+            board.innerHTML = '';
+            board.style.gridTemplateColumns = `repeat(${boardSize}, 100px)`; // Adjust grid size
+
+            // Create cells based on boardSize
+            for (let row = 0; row < boardSize; row++) {
+                let rowArray = [];
+                for (let col = 0; col < boardSize; col++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    cell.addEventListener('click', () => playerMove(row, col));
+                    rowArray.push(cell);
+                    board.appendChild(cell);
+                }
+                gameBoard.push(rowArray);
+            }
+
+            if (gameMode === 'timed') {
+                startTurnTimer();
+            }
+            document.getElementById('gameStatus').textContent = `${currentPlayer}'s turn`;
+        }
+
+        function setGameMode(mode) {
+            gameMode = mode;
+            if (mode === 'classic') {
+                boardSize = 3;
+                winLength = 3;
+                symbols = ['X', 'O'];
+            } else if (mode === 'largerGrid') {
+                boardSize = 4;
+                winLength = 4;
+                symbols = ['X', 'O'];
+            } else if (mode === 'randomSymbols') {
+                symbols = ['★', '❤️', '⚡'];
+            } else if (mode === 'timed') {
+                currentTimer = timeLimit;
+            }
+            setupBoard();
+        }
+
+        function updateGridSize() {
+            boardSize = parseInt(document.getElementById("gridSize").value);
+            setupBoard();
+        }
+
+        function updateWinLength() {
+            winLength = parseInt(document.getElementById("winLength").value);
+        }
+
+        // Timer functionality
+        function startTurnTimer() {
+            clearInterval(timer);
+            currentTimer = timeLimit;
+            timer = setInterval(() => {
+                currentTimer--;
+                document.getElementById("timeLeft").innerText = currentTimer;
+                if (currentTimer <= 0) {
+                    clearInterval(timer);
+                    document.getElementById('gameStatus').textContent = `${currentPlayer} ran out of time!`;
+                    nextTurn();
+                }
+            }, 1000);
+        }
+
+        function playerMove(row, col) {
+            if (gameBoard[row][col].innerText || isGameOver) return;
+            gameBoard[row][col].innerText = currentPlayer;
+            if (gameMode === 'timed') startTurnTimer();
+            if (checkWinner(row, col)) {
+                setTimeout(() => {
+                    document.getElementById('gameStatus').textContent = `${currentPlayer} wins!`;
+                }, 100);
+                isGameOver = true;
+            } else if (gameBoard.flat().every(cell => cell.innerText)) {
+                setTimeout(() => {
+                    document.getElementById('gameStatus').textContent = 'It\'s a tie!';
+                }, 100);
+                isGameOver = true;
+            } else {
+                nextTurn();
+            }
+        }
+
+        function nextTurn() {
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            document.getElementById('gameStatus').textContent = `${currentPlayer}'s turn`;
+        }
+
+        function checkWinner(row, col) {
+            // Check all directions from the current move
+            return checkDirection(row, col, 1, 0) || // Horizontal
+                checkDirection(row, col, 0, 1) || // Vertical
+                checkDirection(row, col, 1, 1) || // Diagonal \
+                checkDirection(row, col, 1, -1); // Diagonal /
+        }
+
+        function checkDirection(row, col, dirX, dirY) {
+            let count = 0;
+            const cellsToCheck = [];
+            for (let i = -winLength + 1; i < winLength; i++) {
+                const r = row + dirX * i;
+                const c = col + dirY * i;
+                if (r >= 0 && r < boardSize && c >= 0 && c < boardSize && gameBoard[r][c].innerText === currentPlayer) {
+                    count++;
+                    cellsToCheck.push([r, c]);
+                } else {
+                    count = 0;
+                    cellsToCheck.length = 0;
+                }
+                if (count === winLength) {
+                    highlightWinningLine(cellsToCheck);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function highlightWinningLine(cells) {
+            cells.forEach(([r, c]) => {
+                gameBoard[r][c].classList.add('winningCell');
+            });
+        }
+
+        setupBoard();
+    </script>
+</body>
+</html>
